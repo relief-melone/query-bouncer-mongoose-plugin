@@ -1,7 +1,7 @@
 {
-  "name": "query-bouncer-mongo-plugin",
+  "name": "query-bouncer-mongoose-plugin",
   "version": "1.0.0",
-  "description": "",
+  "description": "Mongoose Plugin for Query Bouncer",
   "main": "./dist/index.js",
   "scripts": {
     "start": "node ./dist/index.js",

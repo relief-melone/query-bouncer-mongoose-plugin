@@ -1,29 +1,29 @@
-# Mongo Bouncer Plugin
+# Query Bouncer - Mongoose Plugin
 
-A MongoBouncer Plugin for mongoose to integrate with rm-authenticator, rm-authorizer and rm-session-populate. It's goal is to integrate the Role Based Access Control System you define in rm-authorizer easily in your Backend without having to worry about making the correct http requests and modify queries by yourself. The tasks of these components are
+The Mongoose Plugin for Query Bouncer integrates with rm-authenticator, Query Bouncer and rm-session-populate. It's goal is to integrate the Role Based Access Control System you define in Query Bouncer easily in your Backend without having to worry about making the correct http requests and modify queries by yourself. The tasks of these components are
 
-1. **rm-authenticator:** Easy way to authenticate your user with just a Docker Container. Works with different OAuth providers like facebook, linkedin and google+. 
-2. **rm-session-populate:** Middleware for Express. It will automatically communicate with the authenticator and add a user object to your Express **req** with all the information you need
-3. **rm-authorizer:** Set up your Role Based Access System with a comfortable REST-API and use it to automatically modify queries and payloads based on your users permissions.
-4. **MongoBouncer:** A Plugin that handles all the communication with the authorizer automatically so you can focus on writing your application.
+1. **rm-authenticator:** Easy way to authenticate your user with just a Docker Container. Works with different OAuth providers like facebook, linkedin and google+. [(link)](https://github.com/relief-melone/rm-authenticator)
+2. **rm-session-populate:** Middleware for Express. It will automatically communicate with the Authenticator and add a user object to your Express **req** with all the information you need [(link)](https://github.com/relief-melone/rm-session-populator)
+3. **Query Bouncer:** Set up your Role Based Access System with a comfortable REST-API and use it to automatically modify queries and payloads based on your users permissions. [(link)](https://github.com/relief-melone/query-bouncer)
+4. **Query Bouncer Mongoose Plugin:** A Plugin that handles all the communication with the authorizer automatically so you can focus on writing your application.
 
 ## Instalation
 
 Just install with npm
 
 ```sh
-npm i --save mongo-bouncer-plugin
+npm i --save query-bouncer-mongoose-plugin
 ```
 
 ## Usage
 
 ### Prerequisites
 
-You need a running instance of rm-authorizer to connect to. The Authorizer supplies the plugin with the correct queries accordingly to the users permissions. you can see how to set it up [here](https://upcoming-link)
+You need a running instance of Query Bouncer to connect to. The Query Bouncer supplies the plugin with the correct queries accordingly to the users permissions. you can see how to set it up [here](https://github.com/relief-melone/query-bouncer)
 
 ### How it Works
 
-rm-authorizer will be used to easily set up your roles, permissions and roleAssignments for your Application. It supplies endpoints to send your query and payload to. The authorizer will then validate the information based on your users permissions and will e.g. send back an adjusted query based on the users permissions. So what does that mean. Lets assume we have a collection called blogposts. Each BlogPost has a Title, Description and a Category. The user only has access to BlogPosts of the Category "Cars". So when a request to the authorizer is made with the query to get all BlogPosts The Query 
+Query Bouncer will be used to easily set up your roles, permissions and roleAssignments for your Application. It supplies endpoints to send your query and payload to. The Query Bouncer will then validate the information based on your users permissions and will e.g. send back an adjusted query based on the users permissions. So what does that mean. Lets assume we have a collection called blogposts. Each BlogPost has a Title, Description and a Category. The user only has access to BlogPosts of the Category "Cars". So when a request to the Query Bouncer is made with the query to get all BlogPosts The Query 
 
 ```js
 {}
