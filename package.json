@@ -1,0 +1,48 @@
+{
+  "name": "query-bouncer-mongo-plugin",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./dist/index.js",
+  "scripts": {
+    "start": "node ./dist/index.js",
+    "test": "./node_modules/.bin/nyc mocha",
+    "build": "./node_modules/.bin/tsc --watch false --declaration",
+    "lint": "./node_modules/.bin/eslint --ignore-path .gitignore .",
+    "tsc": "./node_modules/.bin/tsc"
+  },
+  "_moduleAliases": {
+    "@root": ".",
+    "@": "dist/src",
+    "@test": "dist/test"
+  },
+  "author": "Relief.Melone",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.19.1",
+    "module-alias": "^2.2.2",
+    "mongodb": "^3.5.0",
+    "mongoose": "^5.8.7"
+  },
+  "devDependencies": {
+    "@types/chai": "latest",
+    "@types/express": "latest",
+    "@types/mocha": "latest",
+    "@types/mongodb": "^3.3.14",
+    "@types/mongoose": "^5.5.41",
+    "@types/moxios": "^0.4.9",
+    "@types/node": "latest",
+    "@typescript-eslint/eslint-plugin": "latest",
+    "@typescript-eslint/parser": "latest",
+    "axios-mock-adapter": "^1.17.0",
+    "chai": "latest",
+    "chai-exclude": "^2.0.2",
+    "eslint": "latest",
+    "eslint-import-resolver-alias": "latest",
+    "eslint-plugin-import": "latest",
+    "mocha": "latest",
+    "mongodb-memory-server": "latest",
+    "nyc": "latest",
+    "sinon": "^8.0.4",
+    "typescript": "latest"
+  }
+}
