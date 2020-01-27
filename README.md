@@ -1,6 +1,6 @@
-# Query Bouncer - Mongoose Plugin
+# MongoBouncer - A Mongoose Plugin for Query Bouncer
 
-The Mongoose Plugin for Query Bouncer integrates with rm-authenticator, Query Bouncer and rm-session-populate. It's goal is to integrate the Role Based Access Control System you define in Query Bouncer easily in your Backend without having to worry about making the correct http requests and modify queries by yourself. The tasks of these components are
+The Mongoose Plugin for Query Bouncer (MongoBouncer) integrates with rm-authenticator, Query Bouncer and rm-session-populate. It's goal is to integrate the Role Based Access Control System you define in Query Bouncer easily in your Backend without having to worry about making the correct http requests and modify queries by yourself. The tasks of these components are
 
 1. **rm-authenticator:** Easy way to authenticate your user with just a Docker Container. Works with different OAuth providers like facebook, linkedin and google+. [(link)](https://github.com/relief-melone/rm-authenticator)
 2. **rm-session-populate:** Middleware for Express. It will automatically communicate with the Authenticator and add a user object to your Express **req** with all the information you need [(link)](https://github.com/relief-melone/rm-session-populator)
@@ -46,7 +46,7 @@ In order to not having to utilize the API of rm-authorizer directly mongo-bounce
 As this is a mongoose plugin simply initialize the plugin like this. You only need the endpoint of your authorizer. That's it
 
 ```ts
-import mongoBouncer from "mongo-bouncer"
+import mongoBouncer from "query-bouncer-mongoose-plugin"
 
 mongoose.plugin(mongoBouncer, {
   baseUrl: "https://your-authorizer.com"
