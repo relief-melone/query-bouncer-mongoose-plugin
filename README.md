@@ -2,10 +2,20 @@
 
 The Mongoose Plugin for Query Bouncer (MongoBouncer) integrates with rm-authenticator, Query Bouncer and rm-session-populate. It's goal is to integrate the Role Based Access Control System you define in Query Bouncer easily in your Backend without having to worry about making the correct http requests and modify queries by yourself. The tasks of these components are
 
-1. **rm-authenticator:** Easy way to authenticate your user with just a Docker Container. Works with different OAuth providers like facebook, linkedin and google+. [(link)](https://github.com/relief-melone/rm-authenticator)
-2. **rm-session-populate:** Middleware for Express. It will automatically communicate with the Authenticator and add a user object to your Express **req** with all the information you need [(link)](https://github.com/relief-melone/rm-session-populator)
-3. **Query Bouncer:** Set up your Role Based Access System with a comfortable REST-API and use it to automatically modify queries and payloads based on your users permissions. [(link)](https://github.com/relief-melone/query-bouncer)
+1. **rm-authenticator:** Easy way to authenticate your user with just a Docker Container. Works with different OAuth providers like facebook, linkedin and google+. 
+   - [GitHub](https://github.com/relief-melone/rm-authenticator)
+   - [Docker](https://hub.docker.com/repository/docker/reliefmelone/rm-authenticator)
+2. **rm-session-populator:** Middleware for Express. It will automatically communicate with the Authenticator and add a user object to your Express **req** with all the information you need
+   - [GitHub](https://github.com/relief-melone/rm-session-populator)
+   - [NPM](https://www.npmjs.com/package/rm-session-populator)
+3. **Query Bouncer:** Set up your Role Based Access System with a comfortable REST-API and use it to automatically modify queries and payloads based on your users permissions. 
+   - [GitHub](https://github.com/relief-melone/query-bouncer)
+   - [Docker](https://hub.docker.com/r/reliefmelone/query-bouncer)
 4. **Query Bouncer Mongoose Plugin:** A Plugin that handles all the communication with the authorizer automatically so you can focus on writing your application.
+
+This Overview illustrates a possible architecture for your application and the integration of those 4 components.
+
+![architecture](./documentation/architectureOverview.png "Architecture Overview")
 
 ## Instalation
 
