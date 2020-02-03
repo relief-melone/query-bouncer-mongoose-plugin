@@ -15,7 +15,7 @@ The Mongoose Plugin for Query Bouncer (MongoBouncer) integrates with rm-authenti
 
 This Overview illustrates a possible architecture for your application and the integration of those 4 components.
 
-![architecture](./documentation/architectureOverview.png "Architecture Overview")
+![architecture](https://raw.githubusercontent.com/relief-melone/query-bouncer-mongoose-plugin/master/documentation/architectureOverview.png "Architecture Overview")
 
 ## Instalation
 
