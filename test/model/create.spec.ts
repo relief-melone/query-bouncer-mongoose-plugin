@@ -19,7 +19,8 @@ describe('create', () => {
   
   const MongoBouncer = { 
     Request : { 
-      cookies: { 'connect.sid' :'connect.sid=myCookie' } 
+      cookies: { 'connect.sid' :'connect.sid=myCookie' },
+      headers: { 'authorization': 'Bearer 1235615.123125152.23312' }
     } as Request
   };
   

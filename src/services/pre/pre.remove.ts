@@ -1,8 +1,8 @@
 import { Schema } from 'mongoose';
-import extractCookie from '@/services/extractCookie';
 import removeAuthorizerOptions from '@/services/removeAuthorizerOptions';
 import bouncerIsActivated from '@/services/bouncerIsActivated';
 import PluginConfig from '@/classes/PluginConfig';
+import extractCookieOrJWTAndReturnHeader from '../extractCookieOrJWTAndReturnHeader';
 
 const preFind = async (
   schema: Schema, 
@@ -14,13 +14,15 @@ const preFind = async (
       const collection = (this as any)._collection.collectionName;
       const right = 'delete';
       const query = (this as any).getQuery();
-    
-      const cookie = extractCookie((this as any).options);   
-      removeAuthorizerOptions(this);
+          
+      
 
       try{
+        const headers = extractCookieOrJWTAndReturnHeader((this as any).options, config);
+        removeAuthorizerOptions(this);
+        
         const newQuery = (
-          await axios.put(`/${collection}/${right}`, query, { headers: { cookie } })
+          await axios.put(`/${collection}/${right}`, query, { headers })
         ).data.query;
 
         (this as any).setQuery(newQuery);

@@ -3,8 +3,8 @@ import PluginConfig from '@/classes/PluginConfig';
 import UpdateSchema from '@/classes/UpdateSchema';
 
 import bouncerIsActivated from '@/services/bouncerIsActivated';
-import extractCookie from '@/services/extractCookie';
 import removeAuthorizerOptions from '@/services/removeAuthorizerOptions';
+import extractCookieOrJWTAndReturnHeader from '../extractCookieOrJWTAndReturnHeader';
 
 const preReplaceOne = async (
   schema: Schema, 
@@ -18,17 +18,18 @@ const preReplaceOne = async (
       const right = 'update';
       const query = self._conditions;
       const payload = self._update;
-      delete payload._id;
-    
-      const cookie = extractCookie((this as any).options, config.cookieName);   
-      removeAuthorizerOptions(this);
+      delete payload._id;    
+      
 
       try{
+        const headers = extractCookieOrJWTAndReturnHeader((this as any).options, config);
+        removeAuthorizerOptions(this);
+
         const newQuery = (
           await axios.put(
             `/${collection}/${right}`, 
             { payload, query }, 
-            { headers: { cookie } }
+            { headers }
           )
         ).data.query;
       

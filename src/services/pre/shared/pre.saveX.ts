@@ -1,9 +1,9 @@
 import { Schema } from 'mongoose';
-import extractCookie from '@/services/extractCookie';
 import bouncerIsActivated from '@/services/bouncerIsActivated';
 import removeAuthorizerOptions from '@/services/removeAuthorizerOptions';
 import PluginConfig from '@/classes/PluginConfig';
 import { Document } from 'mongoose';
+import extractCookieOrJWTAndReturnHeader from '@/services/extractCookieOrJWTAndReturnHeader';
 
 const preSaveX = async (schema: Schema, config: PluginConfig, operation: 'save'): Promise<void> => {
   schema.pre(operation, async function (){ 
@@ -16,15 +16,14 @@ const preSaveX = async (schema: Schema, config: PluginConfig, operation: 'save')
       const payload = self.toObject();
       delete payload._id;
       delete payload.__v;
-    
-      const cookie = extractCookie(options, config.cookieName);   
-      removeAuthorizerOptions(this);
-
       try{        
+        const headers = extractCookieOrJWTAndReturnHeader(options, config);
+        removeAuthorizerOptions(this);
+
         (await axios.put(
           `/${collection}/${right}`, 
           { payload }, 
-          { headers: { cookie } }
+          { headers }
         ));        
       } catch(err) {
         if(err.response.status === 403 || err.response.code === 403) throw 'pre.SaveX: User does not have Permission to Create';

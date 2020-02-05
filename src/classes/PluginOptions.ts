@@ -5,4 +5,5 @@ export default interface PluginOptions {
   apiVersion?: string;
   axios?: AxiosInstance;
   cookieName?: string;
+  jwtHeaderName?: string;
 }
