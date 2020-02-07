@@ -1,13 +1,13 @@
 import { Schema } from 'mongoose';
-import extractCookie from '@/services/extractCookie';
 import removeAuthorizerOptions from '@/services/removeAuthorizerOptions';
 import bouncerIsActivated from '@/services/bouncerIsActivated';
 import UpdateSchema from '@/classes/UpdateSchema';
-import PluginConfig from '@/classes/PluginConfig';
+import MainConfig from '@/classes/MainConfig';
+import extractCookieOrJWTAndReturnHeader from '@/services/extractCookieOrJWTAndReturnHeader';
 
 const preUpdateX = async (
   schema: Schema, 
-  config: PluginConfig, 
+  config: MainConfig, 
   operation: 'update' | 'updateOne'| 'updateMany' | 'findOneAndUpdate'
 ): Promise<void> => {
   schema.pre(operation, async function (){ 
@@ -19,16 +19,16 @@ const preUpdateX = async (
       const query = self._conditions;
       const payload = self._update;
       delete payload._id;
-    
-      const cookie = extractCookie((this as any).options, config.cookieName);   
-      removeAuthorizerOptions(this);
 
       try{
+        const headers = extractCookieOrJWTAndReturnHeader((this as any).options, config);      
+        removeAuthorizerOptions(this);
+
         const newQuery = (
           await axios.put(
             `/${collection}/${right}`, 
             { payload, query }, 
-            { headers: { cookie } }
+            { headers }
           )
         ).data.query;
       

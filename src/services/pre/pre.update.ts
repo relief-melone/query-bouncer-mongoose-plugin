@@ -1,8 +1,8 @@
 import { Schema } from 'mongoose';
-import PluginConfig from '@/classes/PluginConfig';
+import MainConfig from '@/classes/MainConfig';
 import preUpdateX from './shared/pre.updateX';
 
-const preUpdate = async (schema: Schema, config: PluginConfig): Promise<void> => {
+const preUpdate = async (schema: Schema, config: MainConfig): Promise<void> => {
   preUpdateX(schema, config, 'update');
 };
 

@@ -1,7 +1,7 @@
 import { Schema } from 'mongoose';
-import PluginConfig from '@/classes/PluginConfig';
+import MainConfig from '@/classes/MainConfig';
 import findX from './shared/pre.findX';
-const preDeleteMany = async (schema: Schema, config: PluginConfig): Promise<void> => {
+const preDeleteMany = async (schema: Schema, config: MainConfig): Promise<void> => {
   findX( schema, config, 'deleteMany' );
 };
 
