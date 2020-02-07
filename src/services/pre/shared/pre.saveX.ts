@@ -1,11 +1,11 @@
 import { Schema } from 'mongoose';
 import bouncerIsActivated from '@/services/bouncerIsActivated';
 import removeAuthorizerOptions from '@/services/removeAuthorizerOptions';
-import PluginConfig from '@/classes/PluginConfig';
+import MainConfig from '@/classes/MainConfig';
 import { Document } from 'mongoose';
 import extractCookieOrJWTAndReturnHeader from '@/services/extractCookieOrJWTAndReturnHeader';
 
-const preSaveX = async (schema: Schema, config: PluginConfig, operation: 'save'): Promise<void> => {
+const preSaveX = async (schema: Schema, config: MainConfig, operation: 'save'): Promise<void> => {
   schema.pre(operation, async function (){ 
     const options = (this as any).$__.saveOptions;
     if(bouncerIsActivated(options)){

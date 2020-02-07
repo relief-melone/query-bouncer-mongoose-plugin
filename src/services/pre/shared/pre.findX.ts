@@ -1,13 +1,13 @@
 import { Schema } from 'mongoose';
 import removeAuthorizerOptions from '@/services/removeAuthorizerOptions';
 import bouncerIsActivated from '@/services/bouncerIsActivated';
-import PluginConfig from '@/classes/PluginConfig';
+import MainConfig from '@/classes/MainConfig';
 import extractCookieOrJWTAndReturnHeader from '@/services/extractCookieOrJWTAndReturnHeader';
 
 
 const preFind = async (
   schema: Schema, 
-  config: PluginConfig, 
+  config: MainConfig, 
   operation: 'find' | 'findOne' | 'findOneAndDelete' | 'findOneAndRemove' | 'deleteOne' | 'deleteMany' | 'remove'
 ): Promise<void> => {
   schema.pre(operation, async function (){       

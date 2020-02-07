@@ -19,13 +19,14 @@
   "license": "MIT",
   "dependencies": {
     "axios": "^0.19.1",
+    "express": "^4.17.1",
     "module-alias": "^2.2.2",
     "mongodb": "^3.5.0",
     "mongoose": "^5.8.7"
   },
   "devDependencies": {
     "@types/chai": "latest",
-    "@types/express": "latest",
+    "@types/express": "^4.17.2",
     "@types/mocha": "latest",
     "@types/mongodb": "^3.3.14",
     "@types/mongoose": "^5.5.41",

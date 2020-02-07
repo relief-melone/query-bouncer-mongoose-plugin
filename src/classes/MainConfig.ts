@@ -2,7 +2,7 @@ import { AxiosInstance } from 'axios';
 import PluginOptions from './PluginOptions';
 import Axios from '@/services/axios';
 
-export default class PluginConfig{
+export default class MainConfig{
   axios: AxiosInstance;
   baseUrl: string;
   apiVersion: string;

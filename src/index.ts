@@ -1,7 +1,7 @@
 import 'module-alias/register';
 import { Schema } from 'mongoose';
 import PluginOptions from './classes/PluginOptions';
-import PluginConfig from './classes/PluginConfig';
+import MainConfig from './classes/MainConfig';
 
 import preFind from './services/pre/pre.find';
 import preFindOne from './services/pre/pre.findOne';
@@ -20,7 +20,7 @@ import preReplaceOne from './services/pre/pre.replaceOne';
 
 
 export default async (schema: Schema, options: PluginOptions = {}): Promise<void> => {  
-  const pluginConfig = new PluginConfig(options);
+  const pluginConfig = new MainConfig(options);
   
   preCreate(schema, pluginConfig);
   preDeleteMany(schema, pluginConfig);

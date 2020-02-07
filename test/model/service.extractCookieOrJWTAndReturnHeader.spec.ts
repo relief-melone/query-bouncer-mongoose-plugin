@@ -1,11 +1,11 @@
 import 'module-alias/register';
 import extractCookieOrJWTAndReturnHeader from '@/services/extractCookieOrJWTAndReturnHeader';
-import PluginConfig from '@/classes/PluginConfig';
+import MainConfig from '@/classes/MainConfig';
 import { Request } from 'express';
 import { expect } from 'chai';
 
 describe('service.extractCookieOrJWTAndReturnHeader', () => {
-  const validConfig = new PluginConfig({});
+  const validConfig = new MainConfig({});
 
   it('will return header with just cookie if present', () => {
     // Prepare 
