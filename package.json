@@ -1,6 +1,6 @@
 {
   "name": "query-bouncer-mongoose-plugin",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Mongoose Plugin for Query Bouncer",
   "main": "./dist/index.js",
   "scripts": {
@@ -10,17 +10,15 @@
     "lint": "./node_modules/.bin/eslint --ignore-path .gitignore .",
     "tsc": "./node_modules/.bin/tsc"
   },
-  "_moduleAliases": {
-    "@root": ".",
-    "@": "dist/src",
-    "@test": "dist/test"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/relief-melone/query-bouncer-mongoose-plugin"
   },
   "author": "Relief.Melone",
   "license": "MIT",
   "dependencies": {
     "axios": "^0.19.1",
     "express": "^4.17.1",
-    "module-alias": "^2.2.2",
     "mongodb": "^3.5.0",
     "mongoose": "^5.8.7"
   },
@@ -45,5 +43,8 @@
     "nyc": "latest",
     "sinon": "^8.0.4",
     "typescript": "latest"
-  }
+  },
+  "files": [
+    "dist"
+  ]
 }

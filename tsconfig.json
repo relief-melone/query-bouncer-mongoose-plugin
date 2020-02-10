@@ -17,13 +17,7 @@
       "src/types",
       "node_modules/@types"
     ],
-    "baseUrl": ".",
-    "paths": {
-      "@/*": [
-        "src/*"
-      ],
-      "@services/*" : [ "src/services/*" ]
-    },
+    "baseUrl": "."
   },  
   "exclude" : [
     "node_modules"
