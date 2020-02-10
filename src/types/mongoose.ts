@@ -2,14 +2,18 @@
 
 // eslint-disable-next-line import/no-unresolved
 import { Request } from 'express';
-import { QueryFindOneAndUpdateOptions } from 'mongoose';
 import mongodb = require('mongodb');
+
 
 interface MongoBouncerOptions {
   Request?: Request;
 }
 
 declare module 'mongoose' {
+
+  export interface SaveOptions {
+    MongoBouncer?: MongoBouncerOptions;
+  }
 
   export interface QueryFindOneAndUpdateOptions {
     MongoBouncer?: MongoBouncerOptions;
