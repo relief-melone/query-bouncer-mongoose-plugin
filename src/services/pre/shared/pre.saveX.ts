@@ -1,9 +1,9 @@
 import { Schema } from 'mongoose';
-import bouncerIsActivated from '@/services/bouncerIsActivated';
-import removeAuthorizerOptions from '@/services/removeAuthorizerOptions';
-import MainConfig from '@/classes/MainConfig';
+import bouncerIsActivated from '../../bouncerIsActivated';
+import removeAuthorizerOptions from '../../removeAuthorizerOptions';
+import MainConfig from '../../../classes/MainConfig';
 import { Document } from 'mongoose';
-import extractCookieOrJWTAndReturnHeader from '@/services/extractCookieOrJWTAndReturnHeader';
+import extractCookieOrJWTAndReturnHeader from '../../extractCookieOrJWTAndReturnHeader';
 
 const preSaveX = async (schema: Schema, config: MainConfig, operation: 'save'): Promise<void> => {
   schema.pre(operation, async function (){ 

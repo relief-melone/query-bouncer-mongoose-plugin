@@ -1,6 +1,5 @@
-import 'module-alias/register';
-import extractCookieOrJWTAndReturnHeader from '@/services/extractCookieOrJWTAndReturnHeader';
-import MainConfig from '@/classes/MainConfig';
+import extractCookieOrJWTAndReturnHeader from '../../src/services/extractCookieOrJWTAndReturnHeader';
+import MainConfig from '../../src/classes/MainConfig';
 import { Request } from 'express';
 import { expect } from 'chai';
 

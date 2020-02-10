@@ -1,4 +1,4 @@
-import MainConfig from '@/classes/MainConfig';
+import MainConfig from '../classes/MainConfig';
 import { ModelOptions } from 'mongoose';
 import extractJWT from './extractJWT';
 import extractCookie from './extractCookie';

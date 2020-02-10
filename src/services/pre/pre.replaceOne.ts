@@ -1,9 +1,9 @@
 import { Schema } from 'mongoose';
-import MainConfig from '@/classes/MainConfig';
-import UpdateSchema from '@/classes/UpdateSchema';
+import MainConfig from '../../classes/MainConfig';
+import UpdateSchema from '../../classes/UpdateSchema';
 
-import bouncerIsActivated from '@/services/bouncerIsActivated';
-import removeAuthorizerOptions from '@/services/removeAuthorizerOptions';
+import bouncerIsActivated from '../bouncerIsActivated';
+import removeAuthorizerOptions from '../removeAuthorizerOptions';
 import extractCookieOrJWTAndReturnHeader from '../extractCookieOrJWTAndReturnHeader';
 
 const preReplaceOne = async (

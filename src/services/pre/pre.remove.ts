@@ -1,7 +1,7 @@
 import { Schema } from 'mongoose';
-import removeAuthorizerOptions from '@/services/removeAuthorizerOptions';
-import bouncerIsActivated from '@/services/bouncerIsActivated';
-import MainConfig from '@/classes/MainConfig';
+import removeAuthorizerOptions from '../removeAuthorizerOptions';
+import bouncerIsActivated from '../bouncerIsActivated';
+import MainConfig from '../../classes/MainConfig';
 import extractCookieOrJWTAndReturnHeader from '../extractCookieOrJWTAndReturnHeader';
 
 const preFind = async (
