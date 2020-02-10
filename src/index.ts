@@ -1,3 +1,5 @@
+import './types/mongoose';
+
 import { Schema } from 'mongoose';
 import PluginOptions from './classes/PluginOptions';
 import MainConfig from './classes/MainConfig';

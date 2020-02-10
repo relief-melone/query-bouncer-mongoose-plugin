@@ -114,7 +114,11 @@ const post = await BlogPost.create([{
   Title: "MyBlogPost",
   Category: "Cars",
   Description: "Some cool information about my favourite car"
-}]);
+}], { 
+  MongoBouncer : {
+    Request: req 
+  }
+});
 ```
 this
 ```ts
@@ -122,6 +126,10 @@ const post = await BlogPost.create({
   Title: "MyBlogPost",
   Category: "Food",
   Description: "Some cool information about my favourite car"
+}, { 
+  MongoBouncer : {
+    Request: req 
+  }
 });
 ```
 will throw an Error as the user is not allowed to create Blog Posts in that Category
