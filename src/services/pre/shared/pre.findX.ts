@@ -24,7 +24,7 @@ const preFind = async (
         removeAuthorizerOptions(this);
 
         const newQuery = (
-          await axios.put(`/${collection}/${right}`, query, { headers })
+          await axios.put(`/${collection}/${right}`, { query }, { headers })
         ).data.query;
 
         (this as any).setQuery(newQuery);
