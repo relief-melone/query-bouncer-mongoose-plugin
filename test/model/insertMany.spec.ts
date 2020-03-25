@@ -88,7 +88,7 @@ describe('insertMany', () => {
     try{
       (await BlogPost.create(originalPayload, { MongoBouncer })) as any as Document[];      
     } catch (err) {
-      expect(err).to.equal('pre.SaveX: User does not have Permission to Create');
+      expect(err.message).to.equal('pre.SaveX: User does not have Permission to Create');
     }
   });
 

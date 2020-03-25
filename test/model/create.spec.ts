@@ -11,6 +11,7 @@ import plugin from '../../src/index';
 import { Request } from 'express';
 
 chai.use(chaiExclude);
+
 describe('create', () => {
   let mongodb: MongoMemoryServer;
   let BlogPost: Model<Document>;  
@@ -83,10 +84,26 @@ describe('create', () => {
       await BlogPost.create(originalPayload,{ MongoBouncer });
       console.log(this);
     } catch(err) {
-      expect(err).to.deep.equal('pre.SaveX: User does not have Permission to Create');
+      expect(err.message).equal('pre.SaveX: User does not have Permission to Create');
     }
   });
 
+  it('will throw the no cookie or jwt header present error if neither is present', async () => {
+    const originalPayload = [{ Title: 'A new BlogPost', Category: 'Cars', Description: 'Stuff' }]; 
+    const MongoBouncer = {
+      Request: {}
+    };
+    mock.onPut('/blogposts/create').reply(200, {
+      payload: originalPayload
+    });
+    
+    // Execute/Assert
+    try {
+      await BlogPost.create(originalPayload,{ MongoBouncer });
+    } catch(err) {
+      expect(err.message).to.equal('Neither cookie nor JWT present in request');
+    }
+  });
 
   afterEach(async () =>  {
     mock.restore();
