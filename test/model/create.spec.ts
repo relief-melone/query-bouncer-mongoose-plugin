@@ -100,7 +100,6 @@ describe('create', () => {
     // Execute/Assert
     try {
       await BlogPost.create(originalPayload,{ MongoBouncer });
-      console.log(this);
     } catch(err) {
       expect(err.message).to.equal('Neither cookie nor JWT present in request');
     }
