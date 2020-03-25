@@ -35,7 +35,7 @@ const preUpdateX = async (
         this.setQuery(newQuery);      
       
       } catch(err) {
-        if(err.response.code === 403) throw 'preUpdate: User does not have Permission to Update';
+        if(err.response?.code === 403) throw new Error('preUpdate: User does not have Permission to Update');
         throw err;
       }
     }
