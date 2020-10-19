@@ -63,6 +63,19 @@ mongoose.plugin(mongoBouncer, {
 });
 ```
 
+Now with the nature of mongoose plugins this has to be made before any schemas are initialized (which most of time will be done already). So either wrap your schemas so you make sure that the plugin gets initialized first or set the plugin for each schema you want to use (**recommended**)
+
+```ts
+const blogPostSchema = new mongoose.Schema({
+  Title: "My new Blog Post",
+  // ...
+});
+
+blogPostSchema.plugin(mongoBouncer, {
+  baseUrl: "https://your-authorizer.com"
+});
+```
+
 #### Additional Options
 **baseUrl:** The URL the MongoBouncer that you want to connect to is hosted
 **apiVersion:** The Version of the API you want to use. Defaults to v1

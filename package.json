@@ -1,6 +1,6 @@
 {
   "name": "query-bouncer-mongoose-plugin",
-  "version": "1.3.2",
+  "version": "1.4.0",
   "description": "Mongoose Plugin for Query Bouncer",
   "main": "./dist/index.js",
   "scripts": {
