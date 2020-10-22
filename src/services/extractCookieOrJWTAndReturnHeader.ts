@@ -7,11 +7,13 @@ type Headers = {jwt?: string; cookie?: string};
 
 export default(options: ModelOptions, config: MainConfig): Headers => {
   const jwt = extractJWT(options, config.jwtHeaderName);
-  const cookieValue = extractCookie(options, config.cookieName);   
-  if(!jwt && !cookieValue) throw new Error('Neither cookie nor JWT present in request');
-  const headers: Headers = {} ;
-  if(jwt) headers[config.jwtHeaderName] = jwt;
-  if(cookieValue) headers.cookie = `${config.cookieName}=${cookieValue}`;
+  const cookieValue = extractCookie(options, config.cookieName); 
+  
+  const headers:Headers = {};
+  if(jwt || cookieValue){
+    if(jwt) headers[config.jwtHeaderName] = jwt;
+    else if(cookieValue) headers.cookie = `${config.cookieName}=${cookieValue}`;
+  }  
 
   return headers;
 };

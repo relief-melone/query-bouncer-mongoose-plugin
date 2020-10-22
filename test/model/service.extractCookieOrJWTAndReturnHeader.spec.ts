@@ -42,7 +42,7 @@ describe('service.extractCookieOrJWTAndReturnHeader', () => {
     });
   });
 
-  it('will return both in header if cookie and jwt are presend', () => {
+  it('will return jwt if both are present', () => {
     const options = {
       MongoBouncer : { Request : {
         headers: {
@@ -58,11 +58,10 @@ describe('service.extractCookieOrJWTAndReturnHeader', () => {
     // Assert
     expect(headers).to.deep.equal({
       authorization: 'Bearer 12345.6789.01234',
-      cookie: 'connect.sid=1234.1234'
     });
   });
 
-  it('will throw if neither cookie nor jwt presend', () => {
+  it('will not throw, but leave the headers empty if neither cookie nor jwt present', () => {
     const options = {
       MongoBouncer : { Request : {
         headers: {
@@ -71,9 +70,12 @@ describe('service.extractCookieOrJWTAndReturnHeader', () => {
         cookies: { }        
       } as Request }
     };
+    // Execute
+    const headers = extractCookieOrJWTAndReturnHeader(options, validConfig);
 
     // Assert
-    expect(() => extractCookieOrJWTAndReturnHeader(options, validConfig)).to.throw;
+    expect(headers).to.deep.equal({});
+    expect(() => extractCookieOrJWTAndReturnHeader(options, validConfig)).not.to.throw;
     
   });
 });
