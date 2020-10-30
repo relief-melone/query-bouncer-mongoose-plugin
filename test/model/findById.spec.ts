@@ -5,6 +5,7 @@ import chaiExclude from 'chai-exclude';
 import axios from 'axios';
 import plugin from '../../src/index';
 import MockAdapter from 'axios-mock-adapter';
+import { Request as Req } from 'express';
 
 chai.use(chaiExclude);
 describe('findById', () => {
@@ -16,7 +17,7 @@ describe('findById', () => {
   const MongoBouncer = {
     Request : { 
       cookies: { 'connect.sid' :'myCookie' } 
-    } 
+    } as Req
   };
   let ids: string[];
 
