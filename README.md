@@ -53,8 +53,9 @@ In order to not having to utilize the API of rm-authorizer directly mongo-bounce
 
 ### Initialize
 
-As this is a mongoose plugin simply initialize the plugin like this. You only need the endpoint of your authorizer. That's it
+As this is a mongoose plugin simply initialize the plugin like this. You only need the endpoint of your authorizer. That's it. Now there are two ways of handling your config
 
+**BASIC**
 ```ts
 import mongoBouncer from "query-bouncer-mongoose-plugin"
 
@@ -62,6 +63,20 @@ mongoose.plugin(mongoBouncer, {
   baseUrl: "https://your-authorizer.com"
 });
 ```
+
+**ADVANCED**
+
+Mongoose will only keep the object we set in the basic setup stored and the complete config will be generated automatically on the fly. If you want to have more control and to be able to switch out components like axios we recommend you instantiate your config like this
+
+```ts
+import mongoBouncer, { QueryBouncerPluginOptions } from "query-bouncer-mongoose-plugin"
+
+mongoose.plugin(mongoBouncer, new QueryBouncerPluginOptions({
+  baseUrl: "https://your-authorizer.com"
+}));
+
+```
+
 
 Now with the nature of mongoose plugins this has to be made before any schemas are initialized (which most of time will be done already). So either wrap your schemas so you make sure that the plugin gets initialized first or set the plugin for each schema you want to use (**recommended**)
 

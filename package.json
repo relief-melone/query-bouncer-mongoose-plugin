@@ -1,6 +1,6 @@
 {
   "name": "query-bouncer-mongoose-plugin",
-  "version": "1.5.1",
+  "version": "1.6.0",
   "description": "Mongoose Plugin for Query Bouncer",
   "main": "./dist/index.js",
   "scripts": {
@@ -17,7 +17,7 @@
   "author": "Relief.Melone",
   "license": "MIT",
   "dependencies": {
-    "axios": "^0.19.1",
+    "axios": "^0.21.0",
     "express": "^4.17.1",
     "mongodb": "^3.5.0",
     "mongoose": "^5.8.7"

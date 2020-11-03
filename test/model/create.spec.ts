@@ -5,6 +5,7 @@ import chaiExclude from 'chai-exclude';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import plugin from '../../src/index';
+import PluginOptions from '../../src/classes/MainConfig';
 
 // Imports just for Types
 // eslint-disable-next-line import/no-unresolved
@@ -29,7 +30,7 @@ describe('create', () => {
   before(async () => {      
     mongoose = new Mongoose();
     mongodb = new MongoMemoryServer();  
-    mongoose.plugin(plugin,{ axios });
+    mongoose.plugin(plugin, new PluginOptions({ axios }));
     
     await mongoose.connect(await mongodb.getUri(), {
       useNewUrlParser: true,
