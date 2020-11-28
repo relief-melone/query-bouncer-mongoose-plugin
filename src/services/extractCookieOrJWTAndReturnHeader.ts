@@ -1,11 +1,11 @@
-import MainConfig from '../classes/MainConfig';
-import { ModelOptions } from 'mongoose';
+import MainConfig from '../classes/class.MainConfig';
 import extractJWT from './extractJWT';
 import extractCookie from './extractCookie';
+import OperationOptions from '../classes/class.OperationOptions';
 
 type Headers = {jwt?: string; cookie?: string};
 
-export default(options: ModelOptions, config: MainConfig): Headers => {
+export default(options: OperationOptions, config: MainConfig): Headers => {
   const jwt = extractJWT(options, config.jwtHeaderName);
   const cookieValue = extractCookie(options, config.cookieName); 
   

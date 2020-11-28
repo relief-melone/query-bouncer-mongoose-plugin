@@ -1,9 +1,13 @@
 import { Schema } from 'mongoose';
 import removeAuthorizerOptions from '../../removeAuthorizerOptions';
 import bouncerIsActivated from '../../bouncerIsActivated';
-import UpdateSchema from '../../../classes/UpdateSchema';
-import MainConfig from '../../../classes/MainConfig';
+import UpdateSchema from '../../../classes/class.UpdateSchema';
+import MainConfig from '../../../classes/class.MainConfig';
 import extractCookieOrJWTAndReturnHeader from '../..//extractCookieOrJWTAndReturnHeader';
+import OperationOptions, { OperationOptionsInput } from '../../../classes/class.OperationOptions';
+import { Query } from 'mongoose';
+
+type PluginModel = Query<any> & UpdateSchema & { options: OperationOptionsInput };
 
 const preUpdateX = async (
   schema: Schema, 
@@ -11,9 +15,10 @@ const preUpdateX = async (
   operation: 'update' | 'updateOne'| 'updateMany' | 'findOneAndUpdate'
 ): Promise<void> => {
   schema.pre(operation, async function (){ 
-    if(bouncerIsActivated((this as any).options)){
-      const axios = config.axios;
-      const self = this as any as UpdateSchema;
+    const self = this as PluginModel;
+    const options = new OperationOptions(self.options);
+    if(bouncerIsActivated(options)){
+      const axios = config.axios;      
       const collection = self._collection.collectionName;
       const right = 'update';
       const query = self._conditions;
@@ -21,7 +26,7 @@ const preUpdateX = async (
       delete payload._id;
 
       try{
-        const headers = extractCookieOrJWTAndReturnHeader((this as any).options, config);      
+        const headers = extractCookieOrJWTAndReturnHeader(options, config);      
         removeAuthorizerOptions(this);
 
         const newQuery = (

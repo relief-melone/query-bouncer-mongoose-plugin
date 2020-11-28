@@ -5,11 +5,13 @@ import chaiExclude from 'chai-exclude';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import plugin from '../../src/index';
-import PluginOptions from '../../src/classes/MainConfig';
+import PluginOptions from '../../src/classes/class.MainConfig';
 
 // Imports just for Types
 // eslint-disable-next-line import/no-unresolved
 import { Request } from 'express';
+import { assert } from 'console';
+import { fail } from 'assert';
 
 chai.use(chaiExclude);
 
@@ -83,27 +85,31 @@ describe('create', () => {
     // Execute
     try {
       await BlogPost.create(originalPayload,{ MongoBouncer });
-      console.log(this);
+      fail('BlogPost was created but shouldn\'t have');
     } catch(err) {
       expect(err.message).equal('pre.SaveX: User does not have Permission to Create');
     }
   });
 
-  it('will throw the no cookie or jwt header present error if neither is present', async () => {
-    const originalPayload = [{ Title: 'A new BlogPost', Category: 'Cars', Description: 'Stuff' }]; 
-    const MongoBouncer = {
-      Request: {}
+  it('will create the document and ignore the payload restriction if disabled is set to true', async () => {
+    const MongoBouncer = { 
+      Request : { 
+        cookies: { 'connect.sid' :'connect.sid=myCookie' },
+        headers: { 'authorization': 'Bearer 1235615.123125152.23312' }
+      } as Request,
+      Disabled: true
     };
-    mock.onPut('/blogposts/create').reply(200, {
-      payload: originalPayload
-    });
+    const originalPayload = [{ Title: 'A new BlogPost', Category: 'Cars', Description: 'Stuff' }]; 
     
-    // Execute/Assert
-    try {
-      await BlogPost.create(originalPayload,{ MongoBouncer });
-    } catch(err) {
-      expect(err.message).to.equal('Neither cookie nor JWT present in request');
-    }
+    mock.onPut('/blogposts/create').reply(403, { } );
+    
+    // Execute
+    const blogPosts = await BlogPost.create(originalPayload,{ MongoBouncer })as any as Document[];
+
+    // Assert
+    expect(blogPosts.length).to.equal(1);
+    expect(blogPosts.map(d => d.toObject())).excludingEvery(['_id', '__v']).to.deep.equal(originalPayload);
+    expect(blogPosts[0]._id).to.exist;
   });
 
   afterEach(async () =>  {

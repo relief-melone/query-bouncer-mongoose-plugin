@@ -65,11 +65,11 @@ describe('findOneAndUpdate', () => {
     }); 
 
     // Execute
-    const blogPost = await BlogPost.findOneAndUpdate(originalQuery, originalPayload, { MongoBouncer });
+    const blogPost = await BlogPost.findOneAndUpdate(originalQuery, originalPayload, { MongoBouncer, new: true });
 
     // Assert
     expect((blogPost as Document).toObject()).excluding(['__v','_id']).to.deep.equal({
-      Title: 'Cars are great',
+      Title: 'A new BlogPost',
       Description: 'True Story',
       Category: 'Cars'
     });
@@ -94,6 +94,37 @@ describe('findOneAndUpdate', () => {
 
     // Assert
     expect(blogPost).to.equal(null);
+  });
+
+  it('will update the document and ignore the permissions if Disabeld is set to true', async () => {
+    const MongoBouncer = {
+      Request : { 
+        cookies: { 'connect.sid' :'connect.sid=myCookie' } 
+      } as Request,
+      Disabled: true
+    };
+    const originalQuery = { Title : 'A Cat named Foo' };
+    const originalPayload = {
+      Title: 'A Cat Named Bar',
+      Category: 'Cars'
+    };
+    
+    mock.onPut('/blogposts/update').reply(200, {
+      query: {              
+        Title: 'A Cat named Foo',
+        $or : [{ Category: 'Cars' }]        
+      }
+    });
+
+    // Execute
+    const blogPost = await BlogPost.findOneAndUpdate(originalQuery,originalPayload, { MongoBouncer, new: true });
+
+    // Assert
+    expect((blogPost as Document).toObject()).excluding(['__v','_id']).to.deep.equal({ 
+      Title: 'A Cat Named Bar', 
+      Description: 'A Story about a Cat', 
+      Category: 'Cars' 
+    });
   });
 
 

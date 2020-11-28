@@ -1,7 +1,7 @@
 import { Request } from 'express';
-import { ModelOptions } from 'mongoose';
+import OperationOptions from '../classes/class.OperationOptions';
 
-export default(options: ModelOptions | undefined, headerName: string): string | null => {
+export default(options: OperationOptions | undefined, headerName: string): string | null => {
   if(
     !options ||
     !options.MongoBouncer ||

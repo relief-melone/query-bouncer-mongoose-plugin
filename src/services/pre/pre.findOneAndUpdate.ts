@@ -1,5 +1,5 @@
 import { Schema } from 'mongoose';
-import MainConfig from '../../classes/MainConfig';
+import MainConfig from '../../classes/class.MainConfig';
 
 import preUpdateX from './shared/pre.updateX';
 

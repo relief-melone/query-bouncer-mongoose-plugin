@@ -113,10 +113,36 @@ describe('find', () => {
     expect(blogPosts.length).to.equal(4);
   });
 
+  it('bouncer will not run and the requested documents will be returned if disabled is set to true', async () => {
+    // Prepare
+    const MongoBouncer = {
+      Request : { 
+        cookies: { 'connect.sid' :'myCookie' } 
+      } as Request,
+      Disabled: true
+    };
+
+    mock.onPut('/blogposts/read').reply(200, {
+      query: {
+        Category: 'Food',
+        $or : [{ Category: 'Cars' }]
+      }
+    });
+    
+    // Execute
+    const blogPosts = await BlogPost.find({ Category: 'Food' }, null, { MongoBouncer });
+
+    // Assert
+    expect(blogPosts.map(a => a.toObject())).excluding(['__v', '_id']).to.deep.equal([
+      { Title: 'New Food', Description: 'Stuff about super food', Category: 'Food' }
+    ]);
+  });
+
   afterEach(async () =>  {
     mock.restore();
     await mongoose.connection.dropDatabase();  
   });
 
+  
   
 });
