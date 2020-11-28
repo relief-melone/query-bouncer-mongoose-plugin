@@ -1,6 +1,6 @@
 import { Schema } from 'mongoose';
-import MainConfig from '../../classes/MainConfig';
-import UpdateSchema from '../../classes/UpdateSchema';
+import MainConfig from '../../classes/class.MainConfig';
+import UpdateSchema from '../../classes/class.UpdateSchema';
 
 import bouncerIsActivated from '../bouncerIsActivated';
 import removeAuthorizerOptions from '../removeAuthorizerOptions';

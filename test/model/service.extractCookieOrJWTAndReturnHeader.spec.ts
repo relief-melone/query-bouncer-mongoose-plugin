@@ -1,18 +1,21 @@
 import extractCookieOrJWTAndReturnHeader from '../../src/services/extractCookieOrJWTAndReturnHeader';
-import MainConfig from '../../src/classes/MainConfig';
+import MainConfig from '../../src/classes/class.MainConfig';
 import { Request } from 'express';
 import { expect } from 'chai';
+import OperationOptions from '../../src/classes/class.OperationOptions';
 
 describe('service.extractCookieOrJWTAndReturnHeader', () => {
   const validConfig = new MainConfig({});
 
   it('will return header with just cookie if present', () => {
     // Prepare 
-    const options = {
-      MongoBouncer : { Request : {
-        cookies: { 'connect.sid' : '1234.1234' }        
-      } as Request }
-    };
+    const Request = {
+      cookies: { 'connect.sid' : '1234.1234' }        
+    }  as Request;
+    
+    const options = new OperationOptions({
+      MongoBouncer : { Request }
+    });
 
     // Execute
     const headers = extractCookieOrJWTAndReturnHeader(options, validConfig);
@@ -25,13 +28,15 @@ describe('service.extractCookieOrJWTAndReturnHeader', () => {
   });
 
   it('will return header with jwt if just jwt present', () => {
-    const options = {
-      MongoBouncer : { Request : {
-        headers: {
-          authorization: 'Bearer 12345.6789.01234'
-        }        
-      } as Request }
-    };
+    const Request = {
+      headers: {
+        authorization: 'Bearer 12345.6789.01234'
+      }        
+    } as Request;
+
+    const options = new OperationOptions({
+      MongoBouncer : { Request }
+    });
 
     // Execute
     const headers = extractCookieOrJWTAndReturnHeader(options, validConfig);
@@ -43,14 +48,16 @@ describe('service.extractCookieOrJWTAndReturnHeader', () => {
   });
 
   it('will return jwt if both are present', () => {
-    const options = {
-      MongoBouncer : { Request : {
-        headers: {
-          authorization: 'Bearer 12345.6789.01234'
-        },
-        cookies: { 'connect.sid' : '1234.1234' }        
-      } as Request }
-    };
+    const Request = {
+      headers: {
+        authorization: 'Bearer 12345.6789.01234'
+      },
+      cookies: { 'connect.sid' : '1234.1234' }        
+    } as Request;
+    
+    const options = new OperationOptions({
+      MongoBouncer : { Request }
+    });
 
     // Execute
     const headers = extractCookieOrJWTAndReturnHeader(options, validConfig);
@@ -62,13 +69,13 @@ describe('service.extractCookieOrJWTAndReturnHeader', () => {
   });
 
   it('will not throw, but leave the headers empty if neither cookie nor jwt present', () => {
-    const options = {
-      MongoBouncer : { Request : {
-        headers: {
-
-        },
+    const Request:any = { 
+      Request : { headers: {},
         cookies: { }        
-      } as Request }
+      } };
+    
+    const options = {      
+      MongoBouncer : { Request, Disabled: false, }
     };
     // Execute
     const headers = extractCookieOrJWTAndReturnHeader(options, validConfig);

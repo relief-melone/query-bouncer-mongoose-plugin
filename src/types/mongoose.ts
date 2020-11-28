@@ -3,6 +3,7 @@
 // eslint-disable-next-line import/no-unresolved
 import { Request } from 'express';
 import mongodb = require('mongodb');
+import { Collection } from 'mongoose';
 
 
 interface MongoBouncerOptions {
@@ -41,6 +42,19 @@ declare module 'mongoose' {
 
   export interface ModelOptions {
     MongoBouncer?: MongoBouncerOptions;
+  }
+
+  export interface Query<T>{
+    _collection: Collection
+  }
+
+  export interface InternalCache{
+    saveOptions: ModelOptions,
+    _id: mongodb.ObjectID,
+
+  }
+  export interface Document {
+    $__: InternalCache
   }
 
   export interface Model<T extends Document, QueryHelpers> extends NodeJS.EventEmitter, ModelProperties {

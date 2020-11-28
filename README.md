@@ -203,3 +203,27 @@ BlogPost.updateOne(
 ```
 an error will be thrown as a Document will be returned but we are not allowed to invoke the changes we are trying to make.
 
+### More Options
+
+#### Override Disable
+Now if you just add a Request MongoBouncer will run. To stop that from happening later down the road, even if you have already injected the Request into the options you can still disable MongoBouncer by setting the *Disabled* field to true. So a request like this will not run MongoBouncer
+
+```ts
+import { OperationOptionsInput } from "query-bouncer-mongoose-plugin"
+
+const myService = (opts:OperationOptionsInput) => {
+  // opts is already filled with MongoBouncer: { Request }
+
+  if(someConditionApplies()){
+    bouncerOpts.MongoBouncer.Disable = true;
+  }
+
+  BlogPost.updateOne(
+    { Title: "MyBlogPost", Category: "Cars" }, 
+    { Title: "A changed Title", Category: "Food" }, 
+    opts
+  );
+}
+```
+
+

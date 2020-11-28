@@ -1,7 +1,7 @@
 import './types/mongoose';
 
 import { Schema } from 'mongoose';
-import MainConfig from './classes/MainConfig';
+import MainConfig from './classes/class.MainConfig';
 
 import preFind from './services/pre/pre.find';
 import preFindOne from './services/pre/pre.findOne';
@@ -17,6 +17,13 @@ import preUpdateOne from './services/pre/pre.updateOne';
 import preUpdateMany from './services/pre/pre.updateMany';
 import preCreate from './services/pre/pre.create';
 import preReplaceOne from './services/pre/pre.replaceOne';
+
+import OperationOptions, { OperationOptionsInput } from './classes/class.OperationOptions';
+
+export {
+  OperationOptions,
+  OperationOptionsInput
+};
 
 
 export default async (schema: Schema, options: MainConfig): Promise<void> => {  
