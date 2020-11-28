@@ -5,9 +5,11 @@ import Axios from '../services/axios';
 export default class MainConfig{
   public options: PluginOptions;
 
-  constructor(options?: PluginOptionsInput){
-    this.options = options 
-      ? new PluginOptions(options)
+  constructor(options?: PluginOptionsInput | PluginOptions){
+    this.options = options
+      ? options instanceof PluginOptions
+        ? options
+        : new PluginOptions(options)
       : new PluginOptions({});
   }
 

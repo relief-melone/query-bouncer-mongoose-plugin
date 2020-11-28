@@ -226,4 +226,51 @@ const myService = (opts:OperationOptionsInput) => {
 }
 ```
 
+### Testing
+
+When you test you don't want to have a query bouncer running, so you could manually switch out the axios instance with a mock. However we provide our own MockAdapter for the QueryBouncer
+
+
+**my-model.ts**
+```ts
+import { Model, Schema } from 'mongoose'
+import MongoBouncer, { PluginOptions } from 'query-bouncer-mongoose-plugin'
+
+const schema = new Schema({
+  Title: String,
+  Category: String
+});
+// It is important that you instantiate as a new class or the tests will not work
+
+const config = new PluginOptions({
+  baseUrl: 'http://some-where.com/'
+})
+schema.plugin(MongoBouncer, config);
+
+const model = Model('test', schema)
+export default model;
+export { config };
+```
+
+
+**my-model.spec.ts**
+```ts
+import { MockAdapter, PluginOptions,  } from 'query-bouncer-mongoose-plugin';
+import mymodel, { config } from './my-model.ts';
+
+it('should do something', async () => {
+  // Prepare
+  const qBouncer = new MockAdapter(config);
+  qBouncer.mock({
+    collection: mymodel.collection.collectionName,
+    right: 'read',
+    response: {
+      query: { $or: { Category: 'Food' } }
+    }
+  });
+
+  // Execute
+  /// Your Test Code
+})
+```
 
