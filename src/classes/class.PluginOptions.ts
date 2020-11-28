@@ -18,8 +18,7 @@ export default class PluginOptions {
   jwtHeaderName: string;
   axios?: AxiosInstance;
 
-  constructor(input:PluginOptionsInput){
-    
+  constructor(input:PluginOptionsInput){  
 
     this.baseUrl = input.baseUrl || 'http://localhost:8080';
     this.apiVersion = input.apiVersion || 'v1';
@@ -27,7 +26,6 @@ export default class PluginOptions {
     this.jwtHeaderName = input.jwtHeaderName?.toLocaleLowerCase() || 'authorization';
     this.axios = input.axios || Axios(this.baseUrl, this.apiVersion);
     
-    if(input.axios) this.axios = input.axios;
     if(input.cookieName) this.cookieName = input.cookieName;
     if(input.jwtHeaderName) this.jwtHeaderName = input.jwtHeaderName;
     

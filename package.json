@@ -5,7 +5,8 @@
   "main": "./dist/index.js",
   "scripts": {
     "start": "node ./dist/index.js",
-    "test": "./node_modules/.bin/nyc mocha",
+    "test": "./node_modules/.bin/mocha",
+    "coverage": "./node_modules/.bin/nyc mocha",
     "build": "./node_modules/.bin/tsc --watch false --declaration",
     "lint": "./node_modules/.bin/eslint --ignore-path .gitignore .",
     "tsc": "./node_modules/.bin/tsc"
@@ -23,6 +24,7 @@
     "mongoose": "^5.8.7"
   },
   "devDependencies": {
+    "@sinonjs/referee-sinon": "^8.0.0",
     "@types/chai": "latest",
     "@types/express": "^4.17.2",
     "@types/mocha": "latest",
@@ -30,6 +32,7 @@
     "@types/mongoose": "^5.5.41",
     "@types/moxios": "^0.4.9",
     "@types/node": "latest",
+    "@types/sinon": "^9.0.9",
     "@typescript-eslint/eslint-plugin": "latest",
     "@typescript-eslint/parser": "latest",
     "axios-mock-adapter": "^1.17.0",
@@ -41,7 +44,7 @@
     "mocha": "^7.1.1",
     "mongodb-memory-server": "^6.5.0",
     "nyc": "latest",
-    "sinon": "^8.0.4",
+    "sinon": "^8.1.1",
     "typescript": "latest"
   },
   "files": [

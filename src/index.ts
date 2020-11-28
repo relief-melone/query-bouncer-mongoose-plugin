@@ -19,14 +19,17 @@ import preCreate from './services/pre/pre.create';
 import preReplaceOne from './services/pre/pre.replaceOne';
 
 import OperationOptions, { OperationOptionsInput } from './classes/class.OperationOptions';
+import MockAdapter from './classes/class.MockAdapter';
+import { PluginOptionsInput } from './classes/class.PluginOptions';
 
 export {
   OperationOptions,
-  OperationOptionsInput
+  OperationOptionsInput,
+  MockAdapter
 };
 
 
-export default async (schema: Schema, options: MainConfig): Promise<void> => {  
+export default async (schema: Schema, options: PluginOptionsInput): Promise<void> => {  
   const pluginConfig = new MainConfig(options);
   
   preCreate(schema, pluginConfig);
