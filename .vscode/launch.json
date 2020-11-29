@@ -21,7 +21,10 @@
         "${workspaceFolder}/node_modules/**/*.js",
         // "${workspaceFolder}/dist/**/*.js",
         // "${workspaceFolder}/dist/*.js",
-      ]
+      ],
+      "env": {
+        "NODE": "test"
+      }
     },
     {
       "type": "node",

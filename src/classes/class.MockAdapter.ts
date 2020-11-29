@@ -1,4 +1,4 @@
-import MainConfig, { MainConfigInput } from "../classes/class.MainConfig";
+import MainConfig, { MainConfigInput } from '../classes/class.MainConfig';
 
 import axios from 'axios';
 import AxiosMockAdapter  from 'axios-mock-adapter';
@@ -20,20 +20,19 @@ export default class MockAdapter {
   private mockAdapter: AxiosMockAdapter;
   
   requestsMade: number;
-  originalOpts: MainConfig;
+  config: MainConfig;
 
-  constructor(originalOpts: MainConfig | {} ){
-    const oOpts = originalOpts instanceof MainConfig
-      ? originalOpts
-      : new MainConfig(originalOpts)
+  constructor(config: MainConfig){    
 
     this.requestsMade = 0;
     // this.schema;
     // this.queryBouncerPlugin = this.findPlugin(originalOpts);
-    this.originalOpts = oOpts;
-
-    this.originalOpts.axios = axios;
-    this.mockAdapter = new AxiosMockAdapter(axios);
+    const _axios = axios.create({ baseURL: 'http://mock-adapter.local' });
+    this.mockAdapter = new AxiosMockAdapter(_axios);
+    
+    config.axios = _axios;
+    config.baseUrl = 'http://mock-adapter.local';
+    this.config = config;
   }
 
   getResponse(opts:MockOpts):Response{
@@ -72,6 +71,6 @@ export default class MockAdapter {
   }
 
   clearMocks():void{
-    this.mockAdapter.restore();
+    this.mockAdapter.reset();
   }
 }

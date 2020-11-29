@@ -1,7 +1,7 @@
 import './types/mongoose';
 
 import { Schema } from 'mongoose';
-import MainConfig, {MainConfigInput} from './classes/class.MainConfig';
+import MainConfig, { MainConfigInput } from './classes/class.MainConfig';
 
 import preFind from './services/pre/pre.find';
 import preFindOne from './services/pre/pre.findOne';
@@ -28,8 +28,10 @@ export {
 };
 
 
-export default async (schema: Schema, options: MainConfigInput): Promise<void> => {  
-  const pluginConfig = new MainConfig(options);
+export default async (schema: Schema, options: MainConfigInput | MainConfig): Promise<void> => {  
+  const pluginConfig = options instanceof MainConfig 
+    ?options
+    :new MainConfig(options);
   
   preCreate(schema, pluginConfig);
   preDeleteMany(schema, pluginConfig);
