@@ -69,9 +69,9 @@ mongoose.plugin(mongoBouncer, {
 Mongoose will only keep the object we set in the basic setup stored and the complete config will be generated automatically on the fly. If you want to have more control and to be able to switch out components like axios we recommend you instantiate your config like this
 
 ```ts
-import mongoBouncer, { QueryBouncerPluginOptions } from "query-bouncer-mongoose-plugin"
+import mongoBouncer, { MainConfig } from "query-bouncer-mongoose-plugin"
 
-mongoose.plugin(mongoBouncer, new QueryBouncerPluginOptions({
+mongoose.plugin(mongoBouncer, new MainConfig({
   baseUrl: "https://your-authorizer.com"
 }));
 
@@ -234,7 +234,7 @@ When you test you don't want to have a query bouncer running, so you could manua
 **my-model.ts**
 ```ts
 import { Model, Schema } from 'mongoose'
-import MongoBouncer, { PluginOptions } from 'query-bouncer-mongoose-plugin'
+import MongoBouncer, { MainConfig } from 'query-bouncer-mongoose-plugin'
 
 const schema = new Schema({
   Title: String,
@@ -242,7 +242,7 @@ const schema = new Schema({
 });
 // It is important that you instantiate as a new class or the tests will not work
 
-const config = new PluginOptions({
+const config = new MainConfig({
   baseUrl: 'http://some-where.com/'
 })
 schema.plugin(MongoBouncer, config);
@@ -255,7 +255,7 @@ export { config };
 
 **my-model.spec.ts**
 ```ts
-import { MockAdapter, PluginOptions,  } from 'query-bouncer-mongoose-plugin';
+import { MockAdapter, MainConfig,  } from 'query-bouncer-mongoose-plugin';
 import mymodel, { config } from './my-model.ts';
 
 it('should do something', async () => {
