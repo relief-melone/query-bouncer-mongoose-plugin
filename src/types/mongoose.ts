@@ -8,6 +8,7 @@ import { Collection } from 'mongoose';
 
 interface MongoBouncerOptions {
   Request?: Request;
+  Disabled?: boolean;
 }
 
 declare module 'mongoose' {
