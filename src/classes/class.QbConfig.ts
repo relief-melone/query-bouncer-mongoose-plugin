@@ -2,7 +2,7 @@ import { AxiosInstance } from 'axios';
 import Axios from '../services/axios';
 
 
-export interface MainConfigInput {
+export interface QbConfigInput {
   baseUrl?: string;
   apiVersion?: string;
   axios?: AxiosInstance;
@@ -11,7 +11,7 @@ export interface MainConfigInput {
 }
 
 
-export default class MainConfig{
+export default class QbConfig{
   // public options: PluginOptions;
   private opts: {
     baseUrl: string;
@@ -21,7 +21,7 @@ export default class MainConfig{
     axios: AxiosInstance;
   };
 
-  constructor(input?: MainConfigInput | MainConfig){
+  constructor(input?: QbConfigInput | QbConfig){
     
     let baseUrl;
     let apiVersion;
@@ -29,7 +29,7 @@ export default class MainConfig{
     let jwtHeaderName;
     let axios;
 
-    if(input instanceof MainConfig){
+    if(input instanceof QbConfig){
       baseUrl = input.opts.baseUrl;
       apiVersion = input.opts.apiVersion;
       cookieName = input.opts.cookieName;
@@ -87,6 +87,5 @@ export default class MainConfig{
   }
   set axios(axios:AxiosInstance){
     this.opts.axios = axios;
-    console.log(`Axios replaced with: ${axios.defaults.baseURL}`);
   }
 }

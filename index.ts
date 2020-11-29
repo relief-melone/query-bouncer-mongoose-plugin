@@ -1,10 +1,10 @@
 import app from './src/index';
-import MainConfig, {MainConfigInput} from './src/classes/class.MainConfig';
+import QbConfig, { QbConfigInput } from './src/classes/class.QbConfig';
 import MockAdapter from './src/classes/class.MockAdapter';
 
 export {
-  MainConfig,
-  MainConfigInput,
+  QbConfig,
+  QbConfigInput,
   MockAdapter
 };
 

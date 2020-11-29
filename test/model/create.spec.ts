@@ -5,7 +5,7 @@ import chaiExclude from 'chai-exclude';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import plugin from '../../src/index';
-import PluginOptions from '../../src/classes/class.MainConfig';
+import PluginOptions from '../../src/classes/class.QbConfig';
 
 // Imports just for Types
 // eslint-disable-next-line import/no-unresolved

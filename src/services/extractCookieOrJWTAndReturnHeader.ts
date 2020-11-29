@@ -1,11 +1,11 @@
-import MainConfig from '../classes/class.MainConfig';
+import QbConfig from '../classes/class.QbConfig';
 import extractJWT from './extractJWT';
 import extractCookie from './extractCookie';
 import OperationOptions from '../classes/class.OperationOptions';
 
 type Headers = {jwt?: string; cookie?: string};
 
-export default(options: OperationOptions, config: MainConfig): Headers => {
+export default(options: OperationOptions, config: QbConfig): Headers => {
   const jwt = extractJWT(options, config.jwtHeaderName);
   const cookieValue = extractCookie(options, config.cookieName); 
   

@@ -55,7 +55,7 @@ In order to not having to utilize the API of rm-authorizer directly mongo-bounce
 
 As this is a mongoose plugin simply initialize the plugin like this. You only need the endpoint of your authorizer. That's it. Now there are two ways of handling your config
 
-**BASIC**
+#### Basic
 ```ts
 import mongoBouncer from "query-bouncer-mongoose-plugin"
 
@@ -64,16 +64,18 @@ mongoose.plugin(mongoBouncer, {
 });
 ```
 
-**ADVANCED**
+#### Advanced
 
-Mongoose will only keep the object we set in the basic setup stored and the complete config will be generated automatically on the fly. If you want to have more control and to be able to switch out components like axios we recommend you instantiate your config like this
+Mongoose will only keep the object we set in the basic setup stored and the complete config will be generated automatically on the fly. If you want to have more control and to be able to switch out components like axios we recommend you instantiate your config like this. This is also necessary if you want to use the [MockAdapter](#testing)
 
 ```ts
-import mongoBouncer, { MainConfig } from "query-bouncer-mongoose-plugin"
+import mongoBouncer, { QbConfig } from "query-bouncer-mongoose-plugin"
 
-mongoose.plugin(mongoBouncer, new MainConfig({
+const config = new QbConfig({
   baseUrl: "https://your-authorizer.com"
-}));
+})
+
+mongoose.plugin(mongoBouncer, config);
 
 ```
 
@@ -228,13 +230,13 @@ const myService = (opts:OperationOptionsInput) => {
 
 ### Testing
 
-When you test you don't want to have a query bouncer running, so you could manually switch out the axios instance with a mock. However we provide our own MockAdapter for the QueryBouncer
+When you test you don't want to have a query bouncer running, so you could manually switch out the axios instance with a mock. However we provide our own MockAdapter for the QueryBouncer. If you want to mock a schmema with an existing config please make sure you instantiated this config as described under [advanced](#advanced)
 
 
 **my-model.ts**
 ```ts
 import { Model, Schema } from 'mongoose'
-import MongoBouncer, { MainConfig } from 'query-bouncer-mongoose-plugin'
+import MongoBouncer, { QbConfig } from 'query-bouncer-mongoose-plugin'
 
 const schema = new Schema({
   Title: String,
@@ -242,7 +244,7 @@ const schema = new Schema({
 });
 // It is important that you instantiate as a new class or the tests will not work
 
-const config = new MainConfig({
+const config = new QbConfig({
   baseUrl: 'http://some-where.com/'
 })
 schema.plugin(MongoBouncer, config);
@@ -255,7 +257,7 @@ export { config };
 
 **my-model.spec.ts**
 ```ts
-import { MockAdapter, MainConfig,  } from 'query-bouncer-mongoose-plugin';
+import { MockAdapter, QbConfig,  } from 'query-bouncer-mongoose-plugin';
 import mymodel, { config } from './my-model.ts';
 
 it('should do something', async () => {

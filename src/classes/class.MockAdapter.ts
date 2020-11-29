@@ -1,4 +1,4 @@
-import MainConfig, { MainConfigInput } from '../classes/class.MainConfig';
+import QbConfig from './class.QbConfig';
 
 import axios from 'axios';
 import AxiosMockAdapter  from 'axios-mock-adapter';
@@ -20,9 +20,9 @@ export default class MockAdapter {
   private mockAdapter: AxiosMockAdapter;
   
   requestsMade: number;
-  config: MainConfig;
+  config: QbConfig;
 
-  constructor(config: MainConfig){    
+  constructor(config: QbConfig){    
 
     this.requestsMade = 0;
     // this.schema;
