@@ -1,12 +1,12 @@
 import { Schema } from 'mongoose';
 import removeAuthorizerOptions from '../removeAuthorizerOptions';
 import bouncerIsActivated from '../bouncerIsActivated';
-import MainConfig from '../../classes/class.MainConfig';
+import QbConfig from '../../classes/class.QbConfig';
 import extractCookieOrJWTAndReturnHeader from '../extractCookieOrJWTAndReturnHeader';
 
 const preFind = async (
   schema: Schema, 
-  config: MainConfig, 
+  config: QbConfig, 
 ): Promise<void> => {
   (schema as any).pre('remove',{ query: true, document: false } , async function (){       
     if(bouncerIsActivated((this as any).options)){

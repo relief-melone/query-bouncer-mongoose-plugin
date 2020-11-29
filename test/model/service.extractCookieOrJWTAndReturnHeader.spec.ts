@@ -1,11 +1,11 @@
 import extractCookieOrJWTAndReturnHeader from '../../src/services/extractCookieOrJWTAndReturnHeader';
-import MainConfig from '../../src/classes/class.MainConfig';
+import QbConfig from '../../src/classes/class.QbConfig';
 import { Request } from 'express';
 import { expect } from 'chai';
 import OperationOptions from '../../src/classes/class.OperationOptions';
 
 describe('service.extractCookieOrJWTAndReturnHeader', () => {
-  const validConfig = new MainConfig({});
+  const validConfig = new QbConfig({});
 
   it('will return header with just cookie if present', () => {
     // Prepare 

@@ -1,5 +1,5 @@
 import { Schema } from 'mongoose';
-import MainConfig from '../../classes/class.MainConfig';
+import QbConfig from '../../classes/class.QbConfig';
 import UpdateSchema from '../../classes/class.UpdateSchema';
 
 import bouncerIsActivated from '../bouncerIsActivated';
@@ -8,7 +8,7 @@ import extractCookieOrJWTAndReturnHeader from '../extractCookieOrJWTAndReturnHea
 
 const preReplaceOne = async (
   schema: Schema, 
-  config: MainConfig, 
+  config: QbConfig, 
 ): Promise<void> => {
   schema.pre('replaceOne', async function (){ 
     if(bouncerIsActivated((this as any).options)){

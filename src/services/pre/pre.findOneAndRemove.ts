@@ -1,7 +1,7 @@
 import { Schema } from 'mongoose';
-import MainConfig from '../../classes/class.MainConfig';
+import QbConfig from '../../classes/class.QbConfig';
 import findX from './shared/pre.findX';
-const preFindOneAndDelete = async (schema: Schema, config: MainConfig): Promise<void> => {
+const preFindOneAndDelete = async (schema: Schema, config: QbConfig): Promise<void> => {
   findX( schema, config, 'findOneAndRemove' );
 };
 

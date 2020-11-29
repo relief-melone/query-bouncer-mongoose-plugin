@@ -1,7 +1,7 @@
 import { Schema } from 'mongoose';
 import removeAuthorizerOptions from '../../removeAuthorizerOptions';
 import bouncerIsActivated from '../../bouncerIsActivated';
-import MainConfig from '../../../classes/class.MainConfig';
+import QbConfig from '../../../classes/class.QbConfig';
 import extractCookieOrJWTAndReturnHeader from '../../extractCookieOrJWTAndReturnHeader';
 import { Query, Model } from 'mongoose';
 import OperationOptions, { OperationOptionsInput } from '../../../classes/class.OperationOptions';
@@ -10,7 +10,7 @@ type PluginModel = Query<any> & { options: OperationOptionsInput };
 
 const preFind = async (
   schema: Schema, 
-  config: MainConfig, 
+  config: QbConfig, 
   operation: 'find' | 'findOne' | 'findOneAndDelete' | 'findOneAndRemove' | 'deleteOne' | 'deleteMany' | 'remove'
 ): Promise<void> => {
   schema.pre(operation, async function (){

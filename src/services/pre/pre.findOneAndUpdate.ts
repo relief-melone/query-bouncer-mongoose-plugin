@@ -1,9 +1,9 @@
 import { Schema } from 'mongoose';
-import MainConfig from '../../classes/class.MainConfig';
+import QbConfig from '../../classes/class.QbConfig';
 
 import preUpdateX from './shared/pre.updateX';
 
-const preFindOneAndUpdate = async (schema: Schema, config: MainConfig): Promise<void> => {
+const preFindOneAndUpdate = async (schema: Schema, config: QbConfig): Promise<void> => {
   preUpdateX(schema, config, 'findOneAndUpdate');
 };
 

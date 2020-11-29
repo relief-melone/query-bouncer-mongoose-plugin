@@ -1,7 +1,7 @@
 import { Schema } from 'mongoose';
 import bouncerIsActivated from '../../bouncerIsActivated';
 import removeAuthorizerOptions from '../../removeAuthorizerOptions';
-import MainConfig from '../../../classes/class.MainConfig';
+import QbConfig from '../../../classes/class.QbConfig';
 import extractCookieOrJWTAndReturnHeader from '../../extractCookieOrJWTAndReturnHeader';
 import { Query, Document } from 'mongoose';
 import { Model } from 'mongoose';
@@ -10,7 +10,7 @@ import OperationOptions, { OperationOptionsInput } from '../../../classes/class.
 type PluginModel = Document & { options: OperationOptionsInput };
 
 
-const preSaveX = async (schema: Schema, config: MainConfig, operation: 'save'): Promise<void> => {
+const preSaveX = async (schema: Schema, config: QbConfig, operation: 'save'): Promise<void> => {
   schema.pre(operation, async function (){ 
     const self = this as PluginModel;
     const options = new OperationOptions(self.$__.saveOptions);

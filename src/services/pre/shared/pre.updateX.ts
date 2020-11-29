@@ -2,7 +2,7 @@ import { Schema } from 'mongoose';
 import removeAuthorizerOptions from '../../removeAuthorizerOptions';
 import bouncerIsActivated from '../../bouncerIsActivated';
 import UpdateSchema from '../../../classes/class.UpdateSchema';
-import MainConfig from '../../../classes/class.MainConfig';
+import QbConfig from '../../../classes/class.QbConfig';
 import extractCookieOrJWTAndReturnHeader from '../..//extractCookieOrJWTAndReturnHeader';
 import OperationOptions, { OperationOptionsInput } from '../../../classes/class.OperationOptions';
 import { Query } from 'mongoose';
@@ -11,7 +11,7 @@ type PluginModel = Query<any> & UpdateSchema & { options: OperationOptionsInput 
 
 const preUpdateX = async (
   schema: Schema, 
-  config: MainConfig, 
+  config: QbConfig, 
   operation: 'update' | 'updateOne'| 'updateMany' | 'findOneAndUpdate'
 ): Promise<void> => {
   schema.pre(operation, async function (){ 
