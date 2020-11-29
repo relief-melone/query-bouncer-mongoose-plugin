@@ -87,6 +87,5 @@ export default class QbConfig{
   }
   set axios(axios:AxiosInstance){
     this.opts.axios = axios;
-    this.baseUrl = axios.defaults.baseURL || this.baseUrl;
   }
 }
