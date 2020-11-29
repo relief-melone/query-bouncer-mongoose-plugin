@@ -1,8 +1,7 @@
-import PluginOptions, { PluginOptionsInput } from '../classes/class.PluginOptions';
+import MainConfig, { MainConfigInput } from "../classes/class.MainConfig";
 
 import axios from 'axios';
 import AxiosMockAdapter  from 'axios-mock-adapter';
-import MainConfig from './class.MainConfig';
 
 interface Response {
   forbidden?: boolean,
@@ -26,7 +25,7 @@ export default class MockAdapter {
   constructor(originalOpts: MainConfig | {} ){
     const oOpts = originalOpts instanceof MainConfig
       ? originalOpts
-      : new MainConfig(originalOpts);
+      : new MainConfig(originalOpts)
 
     this.requestsMade = 0;
     // this.schema;

@@ -1,8 +1,7 @@
 import { MockAdapter } from '../index';
 import sinon from 'sinon';
 import referee from '@sinonjs/referee';
-import MainConfig from '../src/classes/class.MainConfig';
-import PluginOptions, { PluginOptionsInput } from '../src/classes/class.PluginOptions';
+import MainConfig, {MainConfigInput} from '../src/classes/class.MainConfig';
 import { MongoMemoryServer } from 'mongodb-memory-server';
 import mongoose, { Mongoose, Model, Schema } from 'mongoose';
 import { expect } from 'chai';
@@ -28,7 +27,7 @@ describe('replace Axios', () => {
 
   let mongodb: MongoMemoryServer;
   let mymodel: Model<any>;
-  let config: PluginOptionsInput;
+  let config: MainConfigInput;
 
   before(async () => {
     mongodb = new MongoMemoryServer();
@@ -39,7 +38,7 @@ describe('replace Axios', () => {
       Value: String,
       Category: String,
     });
-    config = new PluginOptions({});
+    config = new MainConfig({});
     schema.plugin(MongoBouncer, config);
     mymodel = mongoose.model('test', schema );
   });

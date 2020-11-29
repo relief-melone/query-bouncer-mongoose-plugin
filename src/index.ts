@@ -1,7 +1,7 @@
 import './types/mongoose';
 
 import { Schema } from 'mongoose';
-import MainConfig from './classes/class.MainConfig';
+import MainConfig, {MainConfigInput} from './classes/class.MainConfig';
 
 import preFind from './services/pre/pre.find';
 import preFindOne from './services/pre/pre.findOne';
@@ -20,7 +20,6 @@ import preReplaceOne from './services/pre/pre.replaceOne';
 
 import OperationOptions, { OperationOptionsInput } from './classes/class.OperationOptions';
 import MockAdapter from './classes/class.MockAdapter';
-import { PluginOptionsInput } from './classes/class.PluginOptions';
 
 export {
   OperationOptions,
@@ -29,7 +28,7 @@ export {
 };
 
 
-export default async (schema: Schema, options: PluginOptionsInput): Promise<void> => {  
+export default async (schema: Schema, options: MainConfigInput): Promise<void> => {  
   const pluginConfig = new MainConfig(options);
   
   preCreate(schema, pluginConfig);
