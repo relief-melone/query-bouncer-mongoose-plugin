@@ -1,4 +1,4 @@
-import { Schema, Mongoose, Model, Document } from 'mongoose';
+import { Schema, Mongoose, Document } from 'mongoose';
 import { MongoMemoryServer } from 'mongodb-memory-server';
 import chai, { expect } from 'chai';
 import chaiExclude from 'chai-exclude';
@@ -10,14 +10,13 @@ import PluginOptions from '../../src/classes/class.QbConfig';
 // Imports just for Types
 // eslint-disable-next-line import/no-unresolved
 import { Request } from 'express';
-import { assert } from 'console';
 import { fail } from 'assert';
 
 chai.use(chaiExclude);
 
 describe('create', () => {
   let mongodb: MongoMemoryServer;
-  let BlogPost: Model<Document>;  
+  let BlogPost: any;  
   let mongoose: Mongoose;
   let mock: MockAdapter;
   
@@ -34,11 +33,7 @@ describe('create', () => {
     mongodb = new MongoMemoryServer();  
     mongoose.plugin(plugin, new PluginOptions({ axios }));
     
-    await mongoose.connect(await mongodb.getUri(), {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-      useFindAndModify: false
-    }); 
+    await mongoose.connect(await mongodb.getUri()); 
 
     const BlogPostSchema = new Schema({
       Title: { type: String, required: true } ,
@@ -86,7 +81,7 @@ describe('create', () => {
     try {
       await BlogPost.create(originalPayload,{ MongoBouncer });
       fail('BlogPost was created but shouldn\'t have');
-    } catch(err) {
+    } catch(err:any) {
       expect(err.message).equal('pre.SaveX: User does not have Permission to Create');
     }
   });

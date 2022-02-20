@@ -26,7 +26,7 @@ const preFind = async (
         ).data.query;
 
         (this as any).setQuery(newQuery);
-      } catch(err) {
+      } catch(err:any) {
         console.log(err);
       }
     } 

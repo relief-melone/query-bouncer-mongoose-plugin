@@ -1,6 +1,6 @@
 {
   "name": "query-bouncer-mongoose-plugin",
-  "version": "1.9.1",
+  "version": "2.0.0",
   "description": "Mongoose Plugin for Query Bouncer",
   "main": "./dist/index.js",
   "scripts": {
@@ -18,10 +18,11 @@
   "author": "Relief.Melone",
   "license": "MIT",
   "dependencies": {
-    "axios": "^0.21.0",
+    "axios": "^0.26.0",
+    "axios-mock-adapter": "^1.20.0",
     "express": "^4.17.1",
-    "mongodb": "^3.5.0",
-    "mongoose": "^5.8.7"
+    "mongodb": "^4.4.0",
+    "mongoose": "^6.2.2"
   },
   "devDependencies": {
     "@sinonjs/referee-sinon": "^8.0.0",
@@ -35,14 +36,13 @@
     "@types/sinon": "^9.0.9",
     "@typescript-eslint/eslint-plugin": "latest",
     "@typescript-eslint/parser": "latest",
-    "axios-mock-adapter": "^1.17.0",
     "chai": "latest",
     "chai-exclude": "^2.0.2",
     "eslint": "latest",
     "eslint-import-resolver-alias": "latest",
     "eslint-plugin-import": "latest",
     "mocha": "^7.1.1",
-    "mongodb-memory-server": "^6.5.0",
+    "mongodb-memory-server": "^6.9.6",
     "nyc": "latest",
     "sinon": "^8.1.1",
     "typescript": "latest"

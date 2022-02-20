@@ -1,19 +1,16 @@
-import { Schema, Mongoose, Model, Document } from 'mongoose';
+import { Schema, Mongoose } from 'mongoose';
 import { MongoMemoryServer } from 'mongodb-memory-server';
 import chai, { expect } from 'chai';
 import chaiExclude from 'chai-exclude';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import plugin from '../../src/index';
-
-// Imports just for Types
-// eslint-disable-next-line import/no-unresolved
 import { Request } from 'express';
 
 chai.use(chaiExclude);
 describe('remove', () => {
   let mongodb: MongoMemoryServer;
-  let BlogPost: Model<Document>;  
+  let BlogPost: any;  
   let mongoose: Mongoose; 
   let mock: MockAdapter;
 
@@ -27,10 +24,7 @@ describe('remove', () => {
     mongoose = new Mongoose();
     mongodb = new MongoMemoryServer();  
     mongoose.plugin(plugin,{ axios });
-    await mongoose.connect(await mongodb.getUri(), {
-      useNewUrlParser: true,
-      useUnifiedTopology: true
-    }); 
+    await mongoose.connect(await mongodb.getUri()); 
 
     const BlogPostSchema = new Schema({
       Title: { type: String, required: true } ,
@@ -64,7 +58,7 @@ describe('remove', () => {
 
     // Assert
     expect(blogPost).to.deep.equal(
-      { n: 2, deletedCount: 2, ok: 1 }   
+      { deletedCount: 2 }   
     );
   });
 
@@ -82,7 +76,7 @@ describe('remove', () => {
     const blogPost = await BlogPost.remove(originalQuery,{ MongoBouncer });
 
     // Assert
-    expect(blogPost).to.deep.equal({ n: 0, deletedCount: 0, ok: 1 } );
+    expect(blogPost).to.deep.equal({ deletedCount: 0 } );
   });
 
   it('will still delete the Document if MongoBounce is not activated', async () => {
@@ -99,7 +93,7 @@ describe('remove', () => {
     const blogPost = await BlogPost.remove(originalQuery);
 
     // Assert
-    expect(blogPost).to.deep.equal({ n: 1, deletedCount: 1, ok: 1 } );
+    expect(blogPost).to.deep.equal({ deletedCount: 1 } );
   });
 
 

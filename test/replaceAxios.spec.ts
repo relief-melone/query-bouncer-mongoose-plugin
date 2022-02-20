@@ -14,9 +14,6 @@ async function connect(connectionString:string, mongoose:Mongoose): Promise<void
   return new Promise((res, rej) => {
     console.log('Connecting to ' + connectionString);  
     mongoose.connect(connectionString, {
-      useNewUrlParser: true,
-      autoReconnect: false,
-      useFindAndModify: false,
     }, () => {
       res();
     });
@@ -26,7 +23,7 @@ async function connect(connectionString:string, mongoose:Mongoose): Promise<void
 describe('replace Axios', () => {
 
   let mongodb: MongoMemoryServer;
-  let mymodel: Model<any>;
+  let mymodel: any;
   let config: QbConfig;
 
   before(async () => {

@@ -30,7 +30,7 @@ const preSaveX = async (schema: Schema, config: QbConfig, operation: 'save'): Pr
           { payload }, 
           { headers }
         ));        
-      } catch(err) {
+      } catch(err:any) {
         if(err.response?.status === 403 || err.response?.code === 403) throw new Error('pre.SaveX: User does not have Permission to Create');
         throw err;
       }

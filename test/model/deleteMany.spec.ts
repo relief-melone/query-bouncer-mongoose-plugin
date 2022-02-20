@@ -1,4 +1,4 @@
-import { Schema, Mongoose, Model, Document } from 'mongoose';
+import { Schema, Mongoose, Model } from 'mongoose';
 import { MongoMemoryServer } from 'mongodb-memory-server';
 import chai, { expect } from 'chai';
 import chaiExclude from 'chai-exclude';
@@ -9,11 +9,12 @@ import MockAdapter from 'axios-mock-adapter';
 // Imports just for Types
 // eslint-disable-next-line import/no-unresolved
 import { Request } from 'express';
+import BlogPost from '../helpers/classes/interface.blogPost';
 
 chai.use(chaiExclude);
 describe('deleteMany', () => {
   let mongodb: MongoMemoryServer;
-  let BlogPost: Model<Document>;  
+  let BlogPost: Model<BlogPost>;  
   let mongoose: Mongoose; 
   let mock: MockAdapter;
 
@@ -28,17 +29,14 @@ describe('deleteMany', () => {
     mongoose = new Mongoose();
     mongodb = new MongoMemoryServer();  
     mongoose.plugin(plugin,{ axios });
-    await mongoose.connect(await mongodb.getUri(), {
-      useNewUrlParser: true,
-      useUnifiedTopology: true
-    }); 
+    await mongoose.connect(await mongodb.getUri()); 
 
-    const BlogPostSchema = new Schema({
+    const BlogPostSchema = new Schema<BlogPost>({
       Title: { type: String, required: true } ,
       Description: { type: String },
       Category: { type: String, required: true }
     });
-    BlogPost = mongoose.model('blogpost', BlogPostSchema);
+    BlogPost = mongoose.model<BlogPost>('blogpost', BlogPostSchema);
   });
 
   beforeEach(async () => {  
@@ -64,7 +62,7 @@ describe('deleteMany', () => {
 
     // Assert
     expect(blogPost).to.deep.equal(
-      { n: 2, deletedCount: 2, ok: 1 }   
+      { deletedCount: 2 }
     );
   });
 
@@ -82,7 +80,7 @@ describe('deleteMany', () => {
     const blogPost = await BlogPost.deleteMany(originalQuery,{ MongoBouncer });
 
     // Assert
-    expect(blogPost).to.deep.equal({ n: 0, deletedCount: 0, ok: 1 } );
+    expect(blogPost).to.deep.equal({ deletedCount: 0 } );
   });
 
   it('will still delete the Document if MongoBounce is not activated', async () => {
@@ -99,7 +97,9 @@ describe('deleteMany', () => {
     const blogPost = await BlogPost.deleteMany(originalQuery);
 
     // Assert
-    expect(blogPost).to.deep.equal({ n: 1, deletedCount: 1, ok: 1 } );
+    expect(blogPost).to.deep.equal({
+      deletedCount: 1
+    } );
   });
 
 

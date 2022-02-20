@@ -7,7 +7,7 @@ import extractCookieOrJWTAndReturnHeader from '../..//extractCookieOrJWTAndRetur
 import OperationOptions, { OperationOptionsInput } from '../../../classes/class.OperationOptions';
 import { Query } from 'mongoose';
 
-type PluginModel = Query<any> & UpdateSchema & { options: OperationOptionsInput };
+type PluginModel = Query<any, any> & UpdateSchema & { options: OperationOptionsInput };
 
 const preUpdateX = async (
   schema: Schema, 
@@ -39,7 +39,7 @@ const preUpdateX = async (
       
         this.setQuery(newQuery);      
       
-      } catch(err) {
+      } catch(err:any) {
         if(err.response?.code === 403) throw new Error('preUpdate: User does not have Permission to Update');
         throw err;
       }

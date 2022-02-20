@@ -36,25 +36,11 @@ export default class QbConfig{
       jwtHeaderName = input.opts.jwtHeaderName;
       axios = input.axios;
     } else {
-      baseUrl = input 
-        ? input.baseUrl || 'http://localhost123:8080'
-        : 'http://localhost:8080';
-      
-      apiVersion = input
-        ? input.apiVersion || 'v1'
-        : 'v1';
-      
-      cookieName = input
-        ? input.cookieName || 'connect.sid'
-        : 'connect.sid';
-      
-      jwtHeaderName = input 
-        ? input.jwtHeaderName?.toLocaleLowerCase() || 'authorization'
-        : 'authorization';
-
-      axios = input
-        ? input.axios || Axios(baseUrl, apiVersion)
-        : Axios(baseUrl, apiVersion);
+      baseUrl = input?.baseUrl ||'http://localhost:8080';      
+      apiVersion = input?.apiVersion || 'v1';      
+      cookieName = input?.cookieName || 'connect.sid';      
+      jwtHeaderName = input?.jwtHeaderName?.toLocaleLowerCase() || 'authorization';
+      axios = input?.axios || Axios(baseUrl, apiVersion);
     }
 
     this.opts = {

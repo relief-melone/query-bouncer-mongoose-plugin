@@ -1,19 +1,16 @@
-import { Schema, Mongoose, Model, Document } from 'mongoose';
+import { Schema, Mongoose, Document } from 'mongoose';
 import { MongoMemoryServer } from 'mongodb-memory-server';
 import chai, { expect } from 'chai';
 import chaiExclude from 'chai-exclude';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import plugin from '../../src/index';
-
-// Imports just for Types
-// eslint-disable-next-line import/no-unresolved
 import { Request } from 'express';
 
 chai.use(chaiExclude);
 describe('findOneAndRemove', () => {
   let mongodb: MongoMemoryServer;
-  let BlogPost: Model<Document>;  
+  let BlogPost: any;  
   let mongoose: Mongoose; 
   let mock: MockAdapter;
 
@@ -27,11 +24,7 @@ describe('findOneAndRemove', () => {
     mongoose = new Mongoose();
     mongodb = new MongoMemoryServer();  
     mongoose.plugin(plugin,{ axios });
-    await mongoose.connect(await mongodb.getUri(), {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-      useFindAndModify: false
-    }); 
+    await mongoose.connect(await mongodb.getUri()); 
 
     const BlogPostSchema = new Schema({
       Title: { type: String, required: true } ,

@@ -6,7 +6,7 @@ import extractCookieOrJWTAndReturnHeader from '../../extractCookieOrJWTAndReturn
 import { Query, Model } from 'mongoose';
 import OperationOptions, { OperationOptionsInput } from '../../../classes/class.OperationOptions';
 
-type PluginModel = Query<any> & { options: OperationOptionsInput };
+type PluginModel = Query<any, any> & { options: OperationOptionsInput };
 
 const preFind = async (
   schema: Schema, 
@@ -32,7 +32,7 @@ const preFind = async (
         ).data.query;
 
         self.setQuery(newQuery);
-      } catch(err) {        
+      } catch(err:any) {        
         throw err;
       }
     } 

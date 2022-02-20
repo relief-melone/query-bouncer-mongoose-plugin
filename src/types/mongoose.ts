@@ -41,26 +41,33 @@ declare module 'mongoose' {
     MongoBouncer?: MongoBouncerOptions
   }
 
+  export interface QueryOptions {
+    MongoBouncer?: MongoBouncerOptions
+  }
+
   export interface ModelOptions {
     MongoBouncer?: MongoBouncerOptions;
   }
 
-  export interface Query<T>{
+  /* eslint-disable @typescript-eslint/ban-types */
+  export interface Query<ResultType, DocType, THelpers = {}, RawDocType = DocType>{
     _collection: Collection
   }
 
   export interface InternalCache{
     saveOptions: ModelOptions,
-    _id: mongodb.ObjectID,
+    _id: mongodb.ObjectId,
 
   }
   export interface Document {
     $__: InternalCache
   }
 
-  export interface Model<T extends Document, QueryHelpers> extends NodeJS.EventEmitter, ModelProperties {
-    deleteMany(conditions: any, options: ModelOptions, callback?: (err: any) => void): Query<mongodb.DeleteWriteOpResultObject['result'] & { deletedCount?: number }> & QueryHelpers;    
-    remove(criteria: any | Query<any>, options: ModelOptions, callback?: (err: any) => void): Query<mongodb.WriteOpResult['result']> & QueryHelpers;
-    replaceOne(conditions: any, replacement: any, options: ModelOptions, callback?: (err: any, raw: any) => void): Query<any> & QueryHelpers;
-  }
+  // Model['remove'];
+  // /* eslint-disable @typescript-eslint/ban-types */
+  // export interface Model<T extends Document<any, any, any>, TQueryHelpers = {}, TMethodsAndOverrides = {}, TVirtuals = {}, QueryHelpers = {}, TMethodOverrides = {}> extends NodeJS.EventEmitter {
+  //   deleteMany(conditions: FilterQuery<any>, options: QueryOptions, callback?: (err: any) => void): any;    
+  //   remove(filter: FilterQuery<Document>, options: ModelOptions, callback?: CallbackWithoutResult): void;
+  //   replaceOne(conditions: any, replacement: any, options: ModelOptions, callback?: (err: any, raw: any) => void): Query<any> & QueryHelpers;
+  // }
 }

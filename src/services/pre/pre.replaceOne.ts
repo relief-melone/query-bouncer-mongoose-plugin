@@ -35,7 +35,7 @@ const preReplaceOne = async (
       
         (this as any).setQuery(newQuery);      
       
-      } catch(err) {
+      } catch(err:any) {
         if(err.response.code === 403) throw 'preUpdate: User does not have Permission to Update';
         throw err;
       }
